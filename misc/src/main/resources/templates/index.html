@@ -23,12 +23,22 @@
   <script src="/js/lib/xss.js" charset="utf-8"></script>
 </head>
 <body class="easyui-layout">
-	<div data-options="region:'north'" style="height:70px;overflow:hidden;padding: 0 10px">
-	
+	<div data-options="region:'north'" style="height:70px;overflow:hidden;padding: 0 10px;background-color: #E0ECEF">
+		<div class="user-info">
+			<span class="item" id="public_change_info"><i class="fa fa-user"></i></span>
+			<span class="item" id="public_change_password"><i class="fa fa-user"></i>修改密码</span>
+			<span class="item" href="/logut"><i class="fa fa-user"></i>注销</span>
+		</div>
+		<h1>鑫麦郎食品管理系统</h1>
 	</div>
-	<div data-options="region:'west',href:'/layout/west.html'" style="width: 200px">
+	<div data-options="region:'west',href:'/layout/west'" style="width: 200px" title="导航菜单">
 	</div>
 	<div data-options="region:'center'">
+		<div class="easyui-tabs" fit="true" id="tabs" border="false">
+			<div title="首页" data-options="fit:true,iconCls:'icon-home'" >
+				<div align="center" style="padding-top: 100px"><font color="red" size="10">欢迎使用</font></div>
+			</div>
+		</div>
 	</div>
 	<div data-options="region:'south'" style="height: 20px;text-align: center;line-height: 20px;overflow: hidden;">
 	</div>

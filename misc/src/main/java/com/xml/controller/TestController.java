@@ -33,6 +33,11 @@ public class TestController {
 		return "login";
 	}
 	
+	@RequestMapping("/layout/west")
+	public String west() {
+		return "/layout/west";
+	}
+	
 	@RequestMapping(value="/login",method= RequestMethod.POST)
 	public String login(String userName,String password,RedirectAttributes rAttributes) {
 		if(userName.isEmpty() || password.isEmpty()) {
