@@ -53,9 +53,10 @@
 		<div class="easyui-tabs" fit="true" id="tabs" border="false">
 			<div title="首页" data-options="fit:true,iconCls:'icon-home'" >
 				<div align="center" style="padding-top: 100px"><font color="red" size="10">欢迎使用</font></div>
-				<div th:if="${session.s_member} != null" th:text="${session.s_member.realName}" style="text-align:center;padding:10px;"></div>
+				<!-- <div th:if="${session.s_member} != null" th:text="${session.s_member.realName}" style="text-align:center;padding:10px;"></div>
 				<input type="text" readonly="readonly" id="createMan" name="createMan" class="easyui-validatebox" required="true" th:if="${session.s_member} != null" value="" th:value="${session.s_member.realName}" />
-			</div>
+ -->			
+ 			</div>
 		</div>
 	</div>
 	<div data-options="region:'south'" style="height: 20px;text-align: center;line-height: 20px;overflow: hidden;">
