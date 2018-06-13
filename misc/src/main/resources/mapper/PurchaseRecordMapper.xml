@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xml.dao.PurchaseRecordMapper">
+	<resultMap id="BaseResultMap"
+		type="com.xml.bean.PurchaseRecord">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="material_id" property="materialId"
+			jdbcType="INTEGER" />
+		<result column="purchase_number" property="purchaseNumber"
+			jdbcType="INTEGER" />
+		<result column="creat_time" property="creatTime"
+			jdbcType="TIMESTAMP" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="remake" property="remake" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, material_id, purchase_number, creat_time, creator, remake
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from purchase_record
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from purchase_record
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.xml.bean.PurchaseRecord">
+		insert into purchase_record (id, material_id, purchase_number,
+		creat_time, creator, remake
+		)
+		values (#{id,jdbcType=INTEGER}, #{materialId,jdbcType=INTEGER},
+		#{purchaseNumber,jdbcType=INTEGER},
+		#{creatTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{remake,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.xml.bean.PurchaseRecord">
+		insert into purchase_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="materialId != null">
+				material_id,
+			</if>
+			<if test="purchaseNumber != null">
+				purchase_number,
+			</if>
+			<if test="creatTime != null">
+				creat_time,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="remake != null">
+				remake,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="materialId != null">
+				#{materialId,jdbcType=INTEGER},
+			</if>
+			<if test="purchaseNumber != null">
+				#{purchaseNumber,jdbcType=INTEGER},
+			</if>
+			<if test="creatTime != null">
+				#{creatTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="remake != null">
+				#{remake,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.xml.bean.PurchaseRecord">
+		update purchase_record
+		<set>
+			<if test="materialId != null">
+				material_id = #{materialId,jdbcType=INTEGER},
+			</if>
+			<if test="purchaseNumber != null">
+				purchase_number = #{purchaseNumber,jdbcType=INTEGER},
+			</if>
+			<if test="creatTime != null">
+				creat_time = #{creatTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creator != null">
+				creator = #{creator,jdbcType=VARCHAR},
+			</if>
+			<if test="remake != null">
+				remake = #{remake,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.xml.bean.PurchaseRecord">
+		update purchase_record
+		set material_id = #{materialId,jdbcType=INTEGER},
+		purchase_number = #{purchaseNumber,jdbcType=INTEGER},
+		creat_time = #{creatTime,jdbcType=TIMESTAMP},
+		creator = #{creator,jdbcType=VARCHAR},
+		remake = #{remake,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="getpurchaseInfo" resultType="com.xml.bean.PurchaseInfo">
+		SELECT
+		pr.id id,
+		pr.material_id materialId,
+		rm.`name` materialName,
+		rm.price price,
+		rm.unit unit,
+		pr.purchase_number purchaseNumber,
+		pr.purchase_number * rm.price totlePrice,
+		pr.creat_time creatTime,
+		pr.creator creator
+		FROM
+		purchase_record pr
+		LEFT JOIN raw_material rm ON pr.material_id = rm.id;
+	</select>
+</mapper>

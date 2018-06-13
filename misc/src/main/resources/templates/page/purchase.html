@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <link rel="stylesheet" type="text/css"	href="/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"	href="/easyui/demo/demo.css">
@@ -8,11 +8,10 @@
 <script type="text/javascript" src="/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
 function openSaleChanceAddDialog(){
-	
 	 $("#dlg").dialog("open").dialog("setTitle","添加原料信息");
-	 //$("#createMan").val('${session.s_member.realName}');
+	 $("#createMan").val('${s_member.realName}');
 	 $("#createTime").val(getCurrentDateTime());
-	 url="${pageContext.request.contextPath}/saleChance/save.do";
+	 url="/saleChance/save.do";
 }
 
 
@@ -20,14 +19,19 @@ function openSaleChanceAddDialog(){
 </head>
 <body style="margin: 1px">
 	<table id="dg" title="原料管理" class="easyui-datagrid" fitColumns="true"
-		pagination="true" rownumbers="true" fit="true" toolbar="#tb" url="/rawmaterial/getRawMaterialInfo">
+		pagination="true" rownumbers="true" fit="true" toolbar="#tb" url="/purchase/getpurchaseInfo">
 		<thead>
 			<tr>
-				<!-- <th field="cb" checkbox="true" align="center"></th> -->
+				<th field="cb" checkbox="true" align="center"></th>
 				<th data-options="field:'id',width:80,halign:'center'">编号</th>
-				<th data-options="field:'name',width:80,halign:'center'">原料名称</th>
+				<th data-options="field:'materialId',width:80,halign:'center',hidden:'true'">原料Id</th>
+				<th data-options="field:'materialName',width:80,halign:'center'">原料名称</th>
 				<th data-options="field:'price',width:80,halign:'center'">单价(元)</th>
 				<th data-options="field:'unit',width:80,halign:'center'">单位</th>
+				<th data-options="field:'purchaseNumber',width:80,halign:'center'">进货量</th>
+				<th data-options="field:'totlePrice',width:80,halign:'center'">总价(元)</th>
+				<th data-options="field:'creatTime',width:80,halign:'center'">进货时间</th>
+				<th data-options="field:'creator',width:80,halign:'center'">进货人</th>
 			</tr>
 		</thead>
 	</table>
@@ -36,11 +40,12 @@ function openSaleChanceAddDialog(){
  		<a href="javascript:openSaleChanceAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">创建</a>
  		<a href="javascript:openSaleChanceModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
  		<a href="javascript:deleteSaleChance()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+ 		<a href="javascript:deleteSaleChance()" class="easyui-linkbutton" iconCls="icon-print" plain="true">打印</a>
  		</div>
  		<div>
  		&nbsp;原料名称：&nbsp;<input type="text" id="s_customerName" size="20" onkeydown="if(event.keyCode==13) searchSaleChance()"/>
- 		&nbsp;概要：&nbsp;<input type="text" id="s_overView" size="20" onkeydown="if(event.keyCode==13) searchSaleChance()"/>
- 		&nbsp;创建人：&nbsp;<input type="text" id="s_createMan" size="20" onkeydown="if(event.keyCode==13) searchSaleChance()"/>
+ 		&nbsp;进货时间：&nbsp;<input type="text" id="s_overView" size="20" onkeydown="if(event.keyCode==13) searchSaleChance()"/>
+ 		&nbsp;进货人：&nbsp;<input type="text" id="s_createMan" size="20" onkeydown="if(event.keyCode==13) searchSaleChance()"/>
  		&nbsp;分配状态：&nbsp;<select class="easyui-combobox" id="s_state" editable="false" panelHeight="auto" >
  								<option value="">请选择...</option>	
  								<option value="0">未分配</option>
@@ -56,27 +61,45 @@ function openSaleChanceAddDialog(){
    		<tr>
    			<td>原料名称：</td>
    			<td><input type="text" id="customerName" name="customerName" class="easyui-validatebox" required="true"/>&nbsp;<font color="red">*</font></td>
-   		</tr>
-   		<tr>
-   			<td>原料单价：</td>
-   			<td><input type="text" id="linkMan" name="linkMan" /></td>
    			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-   			<td>计量单位：</td>
-   			<td><input class="easyui-combobox" id="assignMan" name="assignMan" data-options="panelHeight:'auto',editable:false,valueField:'unitId',textField:'unitName',url:'/unit/getunitinfo'"/></td>
+   			<td>机会来源</td>
+   			<td><input type="text" id="chanceSource" name="chanceSource" /></td>
    		</tr>
    		<tr>
-   			<td>供货商：</td>
+   			<td>联系人：</td>
    			<td><input type="text" id="linkMan" name="linkMan" /></td>
    			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
    			<td>联系电话：</td>
    			<td><input type="text" id="linkPhone" name="linkPhone" /></td>
    		</tr>
    		<tr>
+   			<td>成功几率(%)：</td>
+   			<td><input type="text" id="cgjl" name="cgjl" class="easyui-numberbox" data-options="min:0,max:100" required="true"/>&nbsp;<font color="red">*</font></td>
+   			<td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+   		</tr>
+   		<tr>
+   			<td>概要：</td>
+   			<td colspan="4"><input type="text" id="overView" name="overView" style="width: 420px"/></td>
+   		</tr>
+   		<tr>
+   			<td>机会描述：</td>
+   			<td colspan="4">
+   				<textarea rows="5" cols="50" id="description" name="description"></textarea>
+   			</td>
+   		</tr>
+   		<tr>
    			<td>创建人：</td>
-   			<td><input type="text" readonly="readonly" id="createMan" name="createMan" class="easyui-validatebox" required="true" th:if="${session.s_member} != null" th:value="${session.s_member.realName}" />&nbsp;<font color="red">*</font></td>
+   			<td><input type="text" readonly="readonly" id="createMan" name="createMan" class="easyui-validatebox" required="true"/>&nbsp;<font color="red">*</font></td>
    			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
    			<td>创建时间：</td>
    			<td><input type="text" id="createTime" name="createTime" readonly="readonly"/>&nbsp;<font color="red">*</font></td>
+   		</tr>
+   		<tr>
+   			<td>指派给：</td>
+   			<td><input class="easyui-combobox" id="assignMan" name="assignMan" data-options="panelHeight:'auto',editable:false,valueField:'trueName',textField:'trueName',url:'${pageContext.request.contextPath}/user/customerManagerComboList.do'"/></td>
+   			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+   			<td>指派时间：</td>
+   			<td><input type="text" id="assignTime" name="assignTime" readonly="readonly"/></td>
    		</tr>
    	</table>
    </form>

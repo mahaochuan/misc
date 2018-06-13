@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>鑫麦郎食品管理系统</title>
@@ -15,21 +15,37 @@
   <!-- easyui的核心 -->
   <script src="/easyui/jquery.easyui.min.js" charset="utf-8"></script>
   <!-- Easyui的扩展 -->
-  <script src="/easyui/jquery.edatagrid.js" charset="utf-8"></script>
+ <!--  <script src="/easyui/jquery.edatagrid.js" charset="utf-8"></script> -->
   <!-- Easyui的国际化 -->
   <script src="/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
   <!-- Easyui的bug修复包 -->
-  <script src="/easyui/fixed.js" charset="utf-8"></script>
-  <script src="/js/lib/xss.js" charset="utf-8"></script>
+<!--   <script src="/easyui/fixed.js" charset="utf-8"></script> -->
+<!--   <script src="/js/lib/xss.js" charset="utf-8"></script> -->
+
+<script type="text/javascript">
+
+	function a(){
+		alert("nihao");
+		//var MEMBER = {
+		//	id:${s_member.id},
+		//	realName: '${s_member.realName}',
+		//	userName: '${s_member.userName}'
+		//};
+		//alert(${MEMBER.realName});
+
+	}
+</script>
+
 </head>
 <body class="easyui-layout">
 	<div data-options="region:'north'" style="height:70px;overflow:hidden;padding: 0 10px;background-color: #E0ECEF">
 		<div class="user-info">
-			<span class="item" id="public_change_info"><i class="fa fa-user"></i></span>
+			<span class="item" id="public_change_info" ><i class="fa fa-user" th:if="${session.s_member} != null" th:text="${session.s_member.realName}"></i></span>
 			<span class="item" id="public_change_password"><i class="fa fa-user"></i>修改密码</span>
 			<span class="item" href="/logut"><i class="fa fa-user"></i>注销</span>
 		</div>
 		<h1>鑫麦郎食品管理系统</h1>
+		
 	</div>
 	<div data-options="region:'west',href:'/layout/west'" style="width: 200px" title="导航菜单">
 	</div>
@@ -37,6 +53,8 @@
 		<div class="easyui-tabs" fit="true" id="tabs" border="false">
 			<div title="首页" data-options="fit:true,iconCls:'icon-home'" >
 				<div align="center" style="padding-top: 100px"><font color="red" size="10">欢迎使用</font></div>
+				<div th:if="${session.s_member} != null" th:text="${session.s_member.realName}" style="text-align:center;padding:10px;"></div>
+				<input type="text" readonly="readonly" id="createMan" name="createMan" class="easyui-validatebox" required="true" th:if="${session.s_member} != null" value="" th:value="${session.s_member.realName}" />
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,7 @@
 package com.xml.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,7 @@ public class TestController {
 
 	@RequestMapping("/test")
 	public String test() {
-		return "layout/west"; 
+		return "test"; 
 	}
 	
 	@RequestMapping("/")
@@ -39,7 +41,7 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="/login",method= RequestMethod.POST)
-	public String login(String userName,String password,RedirectAttributes rAttributes) {
+	public String login(String userName,String password,RedirectAttributes rAttributes, HttpSession session) {
 		if(userName.isEmpty() || password.isEmpty()) {
 			log.info("用户或密码错误");
 			rAttributes.addFlashAttribute("error", "用户名或密码错误！");
@@ -54,7 +56,11 @@ public class TestController {
 			rAttributes.addFlashAttribute("error", "用户不存在或已被禁用!");
 			return "redirect:/login";
 		}else if(member.getPassword().equals(password)) {
-			
+			log.info("登陆成功");
+			log.info("登陆成功："+member.getRealName());
+			session.setAttribute("s_member", member);
+//			rAttributes.addFlashAttribute("s_member", member);
+			return "redirect:/";
 		}
 		
 		return "login";

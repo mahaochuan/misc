@@ -11,7 +11,7 @@ spring:
     
   thymeleaf:
     cache: false
-#    mode: HTML5
+    mode: HTML5
     
     
 mybatis:

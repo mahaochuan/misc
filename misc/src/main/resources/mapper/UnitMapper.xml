@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xml.dao.UnitMapper" >
+  <resultMap id="BaseResultMap" type="com.xml.bean.Unit" >
+    <id column="unit_id" property="unitId" jdbcType="INTEGER" />
+    <result column="unit_name" property="unitName" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="remake" property="remake" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    unit_id, unit_name, creat_time, creator, remake
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from unit
+    where unit_id = #{unitId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from unit
+    where unit_id = #{unitId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xml.bean.Unit" >
+    insert into unit (unit_id, unit_name, creat_time, 
+      creator, remake)
+    values (#{unitId,jdbcType=INTEGER}, #{unitName,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{creator,jdbcType=VARCHAR}, #{remake,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xml.bean.Unit" >
+    insert into unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="unitName != null" >
+        unit_name,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="creator != null" >
+        creator,
+      </if>
+      <if test="remake != null" >
+        remake,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="unitId != null" >
+        #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="remake != null" >
+        #{remake,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xml.bean.Unit" >
+    update unit
+    <set >
+      <if test="unitName != null" >
+        unit_name = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        creator = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="remake != null" >
+        remake = #{remake,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xml.bean.Unit" >
+    update unit
+    set unit_name = #{unitName,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=VARCHAR},
+      remake = #{remake,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=INTEGER}
+  </update>
+  
+  
+   <select id="getUnitInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from unit
+  </select>
+</mapper>
