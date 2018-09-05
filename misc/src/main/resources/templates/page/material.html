@@ -1,26 +1,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <link rel="stylesheet" type="text/css"	href="/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"	href="/easyui/demo/demo.css">
+<link rel="stylesheet" type="text/css" href="/easyui/demo/demo.css">
 <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
 <script type="text/javascript" src="/easyui/jquery.min.js"></script>
 <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
-function openSaleChanceAddDialog(){
-	
-	 $("#dlg").dialog("open").dialog("setTitle","添加原料信息");
-	 //$("#createMan").val('${session.s_member.realName}');
-	 $("#createTime").val(getCurrentDateTime());
-	 url="${pageContext.request.contextPath}/saleChance/save.do";
-}
+	function openSaleChanceAddDialog() {
 
-
+		$("#dlg").dialog("open").dialog("setTitle", "添加原料信息");
+		//$("#createMan").val('${session.s_member.realName}');
+		var t = new Date();
+		$("#createTime").val(t);
+		$("#createMan").val('admin');
+		url = "${pageContext.request.contextPath}/saleChance/save.do";
+	}
 </script>
 </head>
 <body style="margin: 1px">
 	<table id="dg" title="原料管理" class="easyui-datagrid" fitColumns="true"
-		pagination="true" rownumbers="true" fit="true" toolbar="#tb" url="/rawmaterial/getRawMaterialInfo">
+		pagination="true" rownumbers="true" fit="true" toolbar="#tb"
+		url="/rawmaterial/getRawMaterialInfo">
 		<thead>
 			<tr>
 				<!-- <th field="cb" checkbox="true" align="center"></th> -->
@@ -32,60 +33,69 @@ function openSaleChanceAddDialog(){
 		</thead>
 	</table>
 	<div id="tb">
-	 	<div>
- 		<a href="javascript:openSaleChanceAddDialog()" class="easyui-linkbutton" iconCls="icon-add" plain="true">创建</a>
- 		<a href="javascript:openSaleChanceModifyDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
- 		<a href="javascript:deleteSaleChance()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
- 		</div>
- 		<div>
- 		&nbsp;原料名称：&nbsp;<input type="text" id="s_customerName" size="20" onkeydown="if(event.keyCode==13) searchSaleChance()"/>
- 		&nbsp;概要：&nbsp;<input type="text" id="s_overView" size="20" onkeydown="if(event.keyCode==13) searchSaleChance()"/>
- 		&nbsp;创建人：&nbsp;<input type="text" id="s_createMan" size="20" onkeydown="if(event.keyCode==13) searchSaleChance()"/>
- 		&nbsp;分配状态：&nbsp;<select class="easyui-combobox" id="s_state" editable="false" panelHeight="auto" >
- 								<option value="">请选择...</option>	
- 								<option value="0">未分配</option>
- 								<option value="1">已分配</option>					
- 		                    </select>
- 		<a href="javascript:searchSaleChance()" class="easyui-linkbutton" iconCls="icon-search" plain="true">搜索</a>
- 	</div>
- 	 <div id="dlg" class="easyui-dialog" style="width:700px;height:450px;padding: 10px 20px"
-   closed="true" buttons="#dlg-buttons">
-   
-   <form id="fm" method="post">
-   	<table cellspacing="8px">
-   		<tr>
-   			<td>原料名称：</td>
-   			<td><input type="text" id="customerName" name="customerName" class="easyui-validatebox" required="true"/>&nbsp;<font color="red">*</font></td>
-   		</tr>
-   		<tr>
-   			<td>原料单价：</td>
-   			<td><input type="text" id="linkMan" name="linkMan" /></td>
-   			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-   			<td>计量单位：</td>
-   			<td><input class="easyui-combobox" id="assignMan" name="assignMan" data-options="panelHeight:'auto',editable:false,valueField:'unitId',textField:'unitName',url:'/unit/getunitinfo'"/></td>
-   		</tr>
-   		<tr>
-   			<td>供货商：</td>
-   			<td><input type="text" id="linkMan" name="linkMan" /></td>
-   			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-   			<td>联系电话：</td>
-   			<td><input type="text" id="linkPhone" name="linkPhone" /></td>
-   		</tr>
-   		<tr>
-   			<td>创建人：</td>
-   			<td><input type="text" readonly="readonly" id="createMan" name="createMan" class="easyui-validatebox" required="true" th:if="${session.s_member} != null" th:value="${session.s_member.realName}" />&nbsp;<font color="red">*</font></td>
-   			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-   			<td>创建时间：</td>
-   			<td><input type="text" id="createTime" name="createTime" readonly="readonly"/>&nbsp;<font color="red">*</font></td>
-   		</tr>
-   	</table>
-   </form>
- </div>
- 
- <div id="dlg-buttons">
- 	<a href="javascript:saveSaleChance()" class="easyui-linkbutton" iconCls="icon-ok">保存</a>
- 	<a href="javascript:closeSaleChanceDialog()" class="easyui-linkbutton" iconCls="icon-cancel">关闭</a>
- </div>
+		<div>
+			<a href="javascript:openSaleChanceAddDialog()"class="easyui-linkbutton" iconCls="icon-add" plain="true">创建</a> 
+			<a href="javascript:openSaleChanceModifyDialog()"class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a> 
+			<a href="javascript:deleteSaleChance()" class="easyui-linkbutton"iconCls="icon-remove" plain="true">删除</a>
+		</div>
+		<div>
+			&nbsp;原料名称：&nbsp;<input type="text" id="s_customerName" size="20"onkeydown="if(event.keyCode==13) searchSaleChance()" />
+			&nbsp;概要：&nbsp;<input type="text" id="s_overView" size="20"onkeydown="if(event.keyCode==13) searchSaleChance()" />
+			&nbsp;创建人：&nbsp;<input type="text" id="s_createMan" size="20"	onkeydown="if(event.keyCode==13) searchSaleChance()" />
+			&nbsp;分配状态：&nbsp;<select class="easyui-combobox" id="s_state"editable="false" panelHeight="auto">
+				<option value="">请选择...</option>
+				<option value="0">未分配</option>
+				<option value="1">已分配</option>
+			</select> <a href="javascript:searchSaleChance()" class="easyui-linkbutton"iconCls="icon-search" plain="true">搜索</a>
+		</div>
+		<div id="dlg" class="easyui-dialog"	style="width: 700px; height: 450px; padding: 10px 20px" closed="true" buttons="#dlg-buttons">
+
+			<form id="fm" method="post" action="/rawmaterial/insertRawMaterialInfo">
+				<table cellspacing="8px">
+					<tr>
+						<td>原料名称：</td>
+						<td><input type="text" id="rawMaterialName" name="rawMaterialName"class="easyui-validatebox" required="true" />&nbsp;<font color="red">*</font></td>
+					</tr>
+					<tr>
+						<td>原料单价：</td>
+						<td><input type="text" id="rawMaterialPrice" name="rawMaterialPrice" /></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>计量单位：</td>
+						<td><input class="easyui-combobox" id="rawMaterialUnit"name="rawMaterialUnit"data-options="panelHeight:'auto',editable:false,valueField:'unitId',textField:'unitName',url:'/unit/getunitinfo'" /></td>
+					</tr>
+					<tr>
+						<td>供货商：</td>
+						<td><input type="text" id="linkMan" name="linkMan" /></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>联系电话：</td>
+						<td><input type="text" id="linkPhone" name="linkPhone" /></td>
+					</tr>
+					<tr>
+						<td>创建人：</td>
+						<td><input type="text" readonly="readonly" id="createMan"name="createMan" class="easyui-validatebox" required="true"  />&nbsp;<font color="red">*</font></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>创建时间：</td>
+						<td><input type="text" id="createTime" name="createTime"readonly="readonly" />&nbsp;<font color="red">*</font></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+		<div id="dlg-buttons">
+			<a href="javascript:saveSaleChance()" class="easyui-linkbutton"iconCls="icon-ok">保存</a> 
+			<a href="javascript:closeSaleChanceDialog()" class="easyui-linkbutton"iconCls="icon-cancel">关闭</a>
+		</div>
 	</div>
+	
+	<script type="text/javascript">
+		function saveSaleChance() {
+			
+			$("#fm").form('submit');
+			/* $("#dlg").dialog("close"); */
+		}
+		function closeSaleChanceDialog() {
+			$("#dlg").dialog("close");
+		}
+	</script>
 </body>
 </html>

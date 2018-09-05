@@ -17,4 +17,9 @@ public class RawMaterialService {
 	public List<RawMaterial> getRawMaterialInfo() {
 		return rawMaterialMapper.getRawMaterialInfo();
 	}
+	
+	
+	public int insertRawMaterialInfo(RawMaterial record) {
+		return rawMaterialMapper.insertSelective(record);
+	}
 }

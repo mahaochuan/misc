@@ -1,66 +1,42 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>鑫麦郎食品管理系统</title>
-  <!-- 导入主题样式文件 -->
-  <link rel="stylesheet" href="/easyui/themes/gray/easyui.css">
-  <!-- 图标 -->
-  <link rel="stylesheet" href="/easyui/themes/icon.css">
-  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-  <!-- 项目公共样式 -->
-  <link rel="stylesheet" href="/css/app.css">
-  <!-- 第一脚本：jquery，必须是在第一位 -->
-  <script src="/easyui/jquery.min.js" charset="utf-8"></script>
-  <!-- easyui的核心 -->
-  <script src="/easyui/jquery.easyui.min.js" charset="utf-8"></script>
-  <!-- Easyui的扩展 -->
- <!--  <script src="/easyui/jquery.edatagrid.js" charset="utf-8"></script> -->
-  <!-- Easyui的国际化 -->
-  <script src="/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
-  <!-- Easyui的bug修复包 -->
-<!--   <script src="/easyui/fixed.js" charset="utf-8"></script> -->
-<!--   <script src="/js/lib/xss.js" charset="utf-8"></script> -->
-
-<script type="text/javascript">
-
-	function a(){
-		alert("nihao");
-		//var MEMBER = {
-		//	id:${s_member.id},
-		//	realName: '${s_member.realName}',
-		//	userName: '${s_member.userName}'
-		//};
-		//alert(${MEMBER.realName});
-
-	}
-</script>
-
-</head>
-<body class="easyui-layout">
-	<div data-options="region:'north'" style="height:70px;overflow:hidden;padding: 0 10px;background-color: #E0ECEF">
-		<div class="user-info">
-			<span class="item" id="public_change_info" ><i class="fa fa-user" th:if="${session.s_member} != null" th:text="${session.s_member.realName}"></i></span>
-			<span class="item" id="public_change_password"><i class="fa fa-user"></i>修改密码</span>
-			<span class="item" href="/logut"><i class="fa fa-user"></i>注销</span>
-		</div>
-		<h1>鑫麦郎食品管理系统</h1>
+    <!DOCTYPE html>
+    <html>
+    <head>
+    	<meta charset="UTF-8">
+    	<title>鑫麦郎食品管理系统</title>
+    	<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    	<link rel="stylesheet" href="/css/app.css">
+    	<link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css">
+    	<link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+    	<link rel="stylesheet" type="text/css" href="/easyui/demo/demo.css">
+    	<script type="text/javascript" src="/easyui/jquery.min.js"></script>
+    	<script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+    </head>
+    <body>
+	   <body class="easyui-layout">
+		    <div data-options="region:'north',split:true" style="height:70px;overflow:hidden;padding: 0 10px;background-color: #E0ECEF">
+		    	<div class="user-info">
+					<span class="item" id="public_change_info" ><i class="fa fa-user" th:if="${session.s_member} != null" th:text="${session.s_member.realName}"></i></span>
+					<span class="item" id="public_change_password"><i class="fa fa-user"></i>修改密码</span>
+					<span class="item" href="/logut"><i class="fa fa-user"></i>注销</span>
+				</div>
+				<h1>鑫麦郎食品管理系统</h1>
+		    </div>
+		    <div data-options="region:'south',split:true" style="height: 30px;text-align: center;line-height: 20px;overflow: hidden;"></div>
+		    <!-- <div data-options="region:'east',title:'East',split:true" style="width:100px;"></div> -->
+		    <div data-options="region:'west',title:'导航菜单',split:true,href:'layout/west',collapsible:false" style="width:200px;"></div>
+		    <div data-options="region:'center'" style="padding:5px;background:#eee;">
+			    <div class="easyui-tabs" fit="true" id="tabs" border="false">
+					<div title="首页" data-options="fit:true,iconCls:'icon-home'" >
+						<div align="center" style="padding-top: 100px"><font color="red" size="10">欢迎使用</font></div>
+						<!-- <div th:if="${session.s_member} != null" th:text="${session.s_member.realName}" style="text-align:center;padding:10px;"></div>
+						<input type="text" readonly="readonly" id="createMan" name="createMan" class="easyui-validatebox" required="true" th:if="${session.s_member} != null" value="" th:value="${session.s_member.realName}" />
+		 -->			
 		
-	</div>
-	<div data-options="region:'west',href:'/layout/west'" style="width: 200px" title="导航菜单">
-	</div>
-	<div data-options="region:'center'">
-		<div class="easyui-tabs" fit="true" id="tabs" border="false">
-			<div title="首页" data-options="fit:true,iconCls:'icon-home'" >
-				<div align="center" style="padding-top: 100px"><font color="red" size="10">欢迎使用</font></div>
-				<!-- <div th:if="${session.s_member} != null" th:text="${session.s_member.realName}" style="text-align:center;padding:10px;"></div>
-				<input type="text" readonly="readonly" id="createMan" name="createMan" class="easyui-validatebox" required="true" th:if="${session.s_member} != null" value="" th:value="${session.s_member.realName}" />
- -->			
- ssss
- 			</div>
-		</div>
-	</div>
-	<div data-options="region:'south'" style="height: 20px;text-align: center;line-height: 20px;overflow: hidden;">
-	</div>
-</body>
-</html>
+		 			</div>
+				</div>
+		    
+		    </div>
+		</body>
+     
+    </body>
+    </html>
