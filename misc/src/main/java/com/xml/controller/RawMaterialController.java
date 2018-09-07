@@ -40,7 +40,8 @@ public class RawMaterialController {
 		RawMaterial rawMaterial = new RawMaterial();
 		rawMaterial.setId(123);
 		rawMaterial.setName(rawMaterialName);
-		int list = rawMaterialService.insertRawMaterialInfo(rawMaterial);
+//		int list = rawMaterialService.insertRawMaterialInfo(rawMaterial);
+		int list = 1;
 		log.info("返回"+list);
 		return list;
 	}

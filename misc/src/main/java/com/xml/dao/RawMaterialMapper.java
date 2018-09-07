@@ -1,8 +1,8 @@
 package com.xml.dao;
 
-import java.util.List;
-
 import com.xml.bean.RawMaterial;
+
+import java.util.List;
 
 public interface RawMaterialMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,6 +16,6 @@ public interface RawMaterialMapper {
     int updateByPrimaryKeySelective(RawMaterial record);
 
     int updateByPrimaryKey(RawMaterial record);
-    
-    List<RawMaterial> getRawMaterialInfo();
+
+    List <RawMaterial> getRawMaterialInfo();
 }
