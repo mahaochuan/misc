@@ -19,12 +19,9 @@
 </script>
 </head>
 <body style="margin: 1px">
-	<table id="dg" title="原料管理" class="easyui-datagrid" fitColumns="true"
-		pagination="true" rownumbers="true" fit="true" toolbar="#tb"
-		url="/rawmaterial/getRawMaterialInfo">
+	<table id="dg" title="原料管理" class="easyui-datagrid" fitColumns="true" pagination="true" rownumbers="true" fit="true" toolbar="#tb" url="/rawmaterial/getRawMaterialInfo">
 		<thead>
 			<tr>
-				<!-- <th field="cb" checkbox="true" align="center"></th> -->
 				<th data-options="field:'id',width:50,halign:'center'">编号</th>
 				<th data-options="field:'name',width:50,halign:'center'">原料名称</th>
 				<th data-options="field:'price',width:50,halign:'center'">单价(元)</th>
@@ -44,11 +41,6 @@
 			&nbsp;原料名称：&nbsp;<input type="text" id="s_customerName" size="20"/>
 			&nbsp;概要：&nbsp;<input type="text" id="s_overView" size="20" />
 			&nbsp;创建人：&nbsp;<input type="text" id="s_createMan" size="20"	 />
-<!--			&nbsp;分配状态：&nbsp;<select class="easyui-combobox" id="s_state"editable="false" panelHeight="auto">
-				<option value="">请选择...</option>
-				<option value="0">未分配</option>
-				<option value="1">已分配</option>
-			</select>-->
 			<a href="javascript:searchSaleChance()" class="easyui-linkbutton"iconCls="icon-search" plain="true">搜索</a>
 		</div>
 		<div id="dlg" class="easyui-dialog"	style="width: 700px; height: 450px; padding: 10px 20px" closed="true" buttons="#dlg-buttons">
@@ -92,20 +84,18 @@
 	
 	<script type="text/javascript">
 		function saveSaleChance() {
-//            action="/rawmaterial/insertRawMaterialInfo"
 			$("#fm").form({
 				url: '/rawmaterial/insertRawMaterialInfo',
 				onSubmit: function () {
 
                 },
 				success: function () {
-					alert("成功")
+                    $("#dlg").dialog("close");
+                    alert("成功");
                 }
 
 			});
             $("#fm").submit();
-//            $("#fm").form('submit');
-			/* $("#dlg").dialog("close"); */
 		}
 		function closeSaleChanceDialog() {
 			$("#dlg").dialog("close");
