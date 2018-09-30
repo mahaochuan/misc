@@ -116,7 +116,7 @@
   </update>
   <select id="getRawMaterialInfo" resultMap="BaseResultMap" >
     select
-    <include refid="Base_Column_List" />
+     <include refid="Base_Column_List" />
     from raw_material
 
   </select>
