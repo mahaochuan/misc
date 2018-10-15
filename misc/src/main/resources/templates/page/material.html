@@ -26,11 +26,10 @@ function formatDatebox(value) {
 	function openSaleChanceAddDialog() {
 
 		$("#dlg").dialog("open").dialog("setTitle", "添加原料信息");
-		//$("#createMan").val('${session.s_member.realName}');
 		var t = new Date();
 		$("#createTime").val(t);
 		$("#createMan").val('admin');
-		url = "${pageContext.request.contextPath}/saleChance/save.do";
+		
 	}
 </script>
 </head>
@@ -43,7 +42,7 @@ function formatDatebox(value) {
 				<th data-options="field:'price',width:50,halign:'center'">单价(元)</th>
 				<th data-options="field:'unit',width:50,halign:'center'">单位</th>
 				<th data-options="field:'creatTime',width:50,halign:'center',formatter: formatDatebox">创建时间</th>
-				<th data-options="field:'updateTime',width:50,halign:'center'">修改时间</th>
+				<th data-options="field:'updateTime',width:50,halign:'center'">最后一次修改时间</th>
 			</tr>
 		</thead>
 	</table>
@@ -52,11 +51,12 @@ function formatDatebox(value) {
 			<a href="javascript:openSaleChanceAddDialog()"class="easyui-linkbutton" iconCls="icon-add" plain="true">创建</a> 
 			<a href="javascript:openSaleChanceModifyDialog()"class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a> 
 			<a href="javascript:deleteSaleChance()" class="easyui-linkbutton"iconCls="icon-remove" plain="true">删除</a>
+			<a href="javascript:openSaleChanceModifyDialog()"class="easyui-linkbutton" iconCls="icon-print" plain="true">导出</a> 
 		</div>
 		<div>
 			&nbsp;原料名称：&nbsp;<input type="text" id="s_customerName" size="20"/>
-			&nbsp;概要：&nbsp;<input type="text" id="s_overView" size="20" />
-			&nbsp;创建人：&nbsp;<input type="text" id="s_createMan" size="20"	 />
+			<!-- &nbsp;概要：&nbsp;<input type="text" id="s_overView" size="20" /> -->
+			<!-- &nbsp;创建人：&nbsp;<input type="text" id="s_createMan" size="20"	 /> -->
 			<a href="javascript:searchSaleChance()" class="easyui-linkbutton"iconCls="icon-search" plain="true">搜索</a>
 		</div>
 		<div id="dlg" class="easyui-dialog"	style="width: 700px; height: 450px; padding: 10px 20px" closed="true" buttons="#dlg-buttons">

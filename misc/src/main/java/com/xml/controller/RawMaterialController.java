@@ -24,20 +24,20 @@ public class RawMaterialController {
 	
 	
 	@RequestMapping("getRawMaterialInfo")
-	public List<RawMaterial> getRawMaterialInfo() {
-		List<RawMaterial> list = rawMaterialService.getRawMaterialInfo();
-		log.info("返回"+list.get(0).getCreatTime());
+	public List<RawMaterial> getRawMaterialInfo(HttpServletRequest request) {
+		
+		log.info("当前页"+request.getParameter("page"));
+		List<RawMaterial> list = rawMaterialService.getRawMaterialInfo(request);
 		return list;
 	}
 	
 	@RequestMapping("insertRawMaterialInfo")
 	public int insertRawMaterialInfo(@RequestBody String jsonData,HttpServletRequest request) {
 		log.info("请求参数"+request.getParameter("rawMaterialName"));
-		String rawMaterialName = request.getParameter("rawMaterialName");
-		RawMaterial rawMaterial = new RawMaterial();
-		rawMaterial.setId(123);
-		rawMaterial.setName(rawMaterialName);
-//		int list = rawMaterialService.insertRawMaterialInfo(rawMaterial);
+		log.info("请求参数"+jsonData);
+		
+		
+		int i = rawMaterialService.insertRawMaterialInfo(request);
 		int list = 1;
 		log.info("返回"+list);
 		return list;
