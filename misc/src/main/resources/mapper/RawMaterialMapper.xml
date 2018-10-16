@@ -115,9 +115,18 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getRawMaterialInfo" resultMap="BaseResultMap" >
-    select
-     <include refid="Base_Column_List" />
-    from raw_material
+    SELECT
+		r.id,
+		r.`name`,
+		r.price,
+		u.unit_name unit,
+		r.creat_time,
+		r.update_time
+	FROM
+		raw_material r
+	LEFT JOIN unit u ON r.unit = u.unit_id
+	WHERE
+		r.`status` = '0'
 
   </select>
 

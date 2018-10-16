@@ -35,11 +35,8 @@ public class RawMaterialController {
 	public int insertRawMaterialInfo(@RequestBody String jsonData,HttpServletRequest request) {
 		log.info("请求参数"+request.getParameter("rawMaterialName"));
 		log.info("请求参数"+jsonData);
-		
-		
 		int i = rawMaterialService.insertRawMaterialInfo(request);
-		int list = 1;
-		log.info("返回"+list);
-		return list;
+		log.info("返回"+i);
+		return i;
 	}
 }
