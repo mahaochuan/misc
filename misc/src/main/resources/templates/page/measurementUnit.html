@@ -1,0 +1,120 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css"	href="/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="/easyui/demo/demo.css">
+<link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css">
+<script type="text/javascript" src="/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="/js/dateUtil.js"></script>
+<script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript">
+
+function formatDatebox(value) {  
+    if (value == null || value == '') {  
+        return '';  
+    }  
+    var dt;  
+    if (value instanceof Date) {  
+        dt = value;  
+    } else {  
+        dt = new Date(value);  
+    }  
+  
+    return dt.Format("yyyy-MM-dd hh:mm:ss"); //扩展的Date的format方法(上述插件实现)  
+}
+function openSaleChanceAddDialog() {
+
+	$("#dlg").dialog("open").dialog("setTitle", "添加计量单位");
+	var t = new Date();
+	$("#createTime").val(t);
+	$("#createMan").val('admin');
+	
+}
+</script>
+</head>
+<body style="margin: 1px">
+	<table id="dg" title="原料管理" class="easyui-datagrid" fitColumns="true" pagination="true" rownumbers="true" fit="true" toolbar="#tb" url="/unit/getunitinfo">
+		<thead>
+			<tr>
+				<th data-options="field:'unitId',width:50,halign:'center'">计量单位编号</th>
+				<th data-options="field:'unitName',width:50,halign:'center'">计量单位名称</th>
+				<!-- <th data-options="field:'price',width:50,halign:'center'">单价(元)</th>
+				<th data-options="field:'unit',width:50,halign:'center'">单位</th> -->
+				<th data-options="field:'creatTime',width:50,halign:'center',formatter: formatDatebox">创建时间</th>
+				<th data-options="field:'updateTime',width:50,halign:'center'">最后一次修改时间</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="tb">
+		<div>
+			<a href="javascript:openSaleChanceAddDialog()"class="easyui-linkbutton" iconCls="icon-add" plain="true">创建</a> 
+			<a href="javascript:openSaleChanceModifyDialog()"class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a> 
+			<a href="javascript:deleteSaleChance()" class="easyui-linkbutton"iconCls="icon-remove" plain="true">删除</a>
+			<a href="javascript:openSaleChanceModifyDialog()"class="easyui-linkbutton" iconCls="icon-print" plain="true">导出</a> 
+		</div>
+		<div>
+			&nbsp;原料名称：&nbsp;<input type="text" id="s_customerName" size="20"/>
+			<!-- &nbsp;概要：&nbsp;<input type="text" id="s_overView" size="20" /> -->
+			<!-- &nbsp;创建人：&nbsp;<input type="text" id="s_createMan" size="20"	 /> -->
+			<a href="javascript:searchSaleChance()" class="easyui-linkbutton"iconCls="icon-search" plain="true">搜索</a>
+		</div>
+		<div id="dlg" class="easyui-dialog"	style="width: 700px; height: 450px; padding: 10px 20px" closed="true" buttons="#dlg-buttons">
+
+			<form id="fm" method="post" >
+				<table cellspacing="8px">
+					<tr>
+						<td>原料名称：</td>
+						<td><input type="text" id="rawMaterialName" name="rawMaterialName" class="easyui-validatebox" required="true" />&nbsp;<font color="red">*</font></td>
+					</tr>
+					<tr>
+						<td>原料单价：</td>
+						<td><input type="text" id="rawMaterialPrice" name="rawMaterialPrice" class="easyui-validatebox" required="true" /></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>计量单位：</td>
+						<td><input class="easyui-combobox" id="rawMaterialUnit" name="rawMaterialUnit" data-options="panelHeight:'auto',editable:false,valueField:'unitId',textField:'unitName',url:'/unit/getunitinfo'" required="true"/></td>
+					</tr>
+					<tr>
+						<td>供货商：</td>
+						<td><input type="text" id="linkMan" name="linkMan" class="easyui-validatebox" required="true"/></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>联系电话：</td>
+						<td><input type="text" id="linkPhone" name="linkPhone" class="easyui-validatebox" required="true"/></td>
+					</tr>
+					<tr>
+						<td>创建人：</td>
+						<td><input type="text" readonly="readonly" id="createMan"name="createMan" class="easyui-validatebox" required="true"  />&nbsp;<font color="red">*</font></td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>创建时间：</td>
+						<td><input type="text" id="createTime" name="createTime"readonly="readonly" />&nbsp;<font color="red">*</font></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+		<div id="dlg-buttons">
+			<a href="javascript:saveSaleChance()" class="easyui-linkbutton"iconCls="icon-ok">保存</a> 
+			<a href="javascript:closeSaleChanceDialog()" class="easyui-linkbutton"iconCls="icon-cancel">关闭</a>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		function saveSaleChance() {
+			$("#fm").form({
+				url: '/rawmaterial/insertRawMaterialInfo',
+				onSubmit: function () {
+
+                },
+				success: function () {
+                    $("#dlg").dialog("close");
+                    alert("成功");
+                }
+
+			});
+            $("#fm").submit();
+		}
+		function closeSaleChanceDialog() {
+			$("#dlg").dialog("close");
+		}
+	</script>
+</body>
+</html>

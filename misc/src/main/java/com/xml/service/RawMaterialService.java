@@ -28,7 +28,10 @@ public class RawMaterialService {
 //		JSONObject obj = JSON.parseObject(jsonData);
 		String pageNow = request.getParameter("page");
 		String pageSize = request.getParameter("rows");
-		PageHelper.startPage(Integer.parseInt(pageNow) , Integer.parseInt(pageSize));
+		if(pageNow!=null && !"".equals(pageNow)) {
+			
+			PageHelper.startPage(Integer.parseInt(pageNow) , Integer.parseInt(pageSize));
+		}
 		List<RawMaterial> list = rawMaterialMapper.getRawMaterialInfo();
 		PageInfo<RawMaterial> list1 = new PageInfo<>(list);
 		list = list1.getList();
@@ -50,5 +53,10 @@ public class RawMaterialService {
 		rawMaterial.setUnit(rawMaterialUnit);
 		rawMaterial.setCreatTime(date);
 		return rawMaterialMapper.insertSelective(rawMaterial);
+	}
+	
+	public RawMaterial getByPrimaryKey(int id) {
+//		rawMaterialMapper.selectByPrimaryKey(id);
+		return rawMaterialMapper.selectByPrimaryKey(id);
 	}
 }

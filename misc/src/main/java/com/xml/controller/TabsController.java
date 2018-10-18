@@ -16,4 +16,9 @@ public class TabsController {
 	public String getPurchase() {
 		return "page/purchase";
 	}
+	
+	@RequestMapping("measurementUnit")
+	public String getMeasurementUnit() {
+		return "page/measurementUnit";
+	}
 }
