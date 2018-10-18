@@ -16,8 +16,7 @@
 	<sql id="Base_Column_List">
 		id, material_id, purchase_number, creat_time, creator, remake
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultType="com.xml.vo.MaterialVo" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from purchase_record
@@ -128,6 +127,6 @@
 		pr.creator creator
 		FROM
 		purchase_record pr
-		LEFT JOIN raw_material rm ON pr.material_id = rm.id;
+		LEFT JOIN raw_material rm ON pr.material_id = rm.id
 	</select>
 </mapper>

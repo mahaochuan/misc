@@ -92,7 +92,7 @@
   </update>
   
   
-   <select id="getUnitInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   <select id="getUnitInfoList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from unit

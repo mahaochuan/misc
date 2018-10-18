@@ -17,5 +17,5 @@ public interface UnitMapper {
 
     int updateByPrimaryKey(Unit record);
     
-    List<Unit> getUnitInfo();
+    List<Unit> getUnitInfoList();
 }

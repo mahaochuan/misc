@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xml.bean.RawMaterial;
 import com.xml.dao.RawMaterialMapper;
+import com.xml.vo.EasyUIPageVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,17 +24,23 @@ public class RawMaterialService {
 	@Autowired
 	private RawMaterialMapper rawMaterialMapper;
 	
-	public List<RawMaterial> getRawMaterialInfo(HttpServletRequest request) {
+	public EasyUIPageVo<RawMaterial> getRawMaterialInfo(HttpServletRequest request) {
 //		log.info("请求参数"+jsonData);
 //		JSONObject obj = JSON.parseObject(jsonData);
 		String pageNow = request.getParameter("page");
 		String pageSize = request.getParameter("rows");
-		PageHelper.startPage(Integer.parseInt(pageNow) , Integer.parseInt(pageSize));
+		if(pageNow!=null && !"".equals(pageNow)) {
+			
+			PageHelper.startPage(Integer.parseInt(pageNow) , Integer.parseInt(pageSize));
+		}
 		List<RawMaterial> list = rawMaterialMapper.getRawMaterialInfo();
 		PageInfo<RawMaterial> list1 = new PageInfo<>(list);
 		list = list1.getList();
+		EasyUIPageVo<RawMaterial> a = new EasyUIPageVo<>();
+		a.setTotal(list1.getTotal());
+		a.setRows(list1.getList());
 		log.info("返回"+list.get(0).getCreatTime());
-		return list;
+		return a;
 	}
 	
 	
@@ -50,5 +57,10 @@ public class RawMaterialService {
 		rawMaterial.setUnit(rawMaterialUnit);
 		rawMaterial.setCreatTime(date);
 		return rawMaterialMapper.insertSelective(rawMaterial);
+	}
+	
+	public RawMaterial getByPrimaryKey(int id) {
+//		rawMaterialMapper.selectByPrimaryKey(id);
+		return rawMaterialMapper.selectByPrimaryKey(id);
 	}
 }
