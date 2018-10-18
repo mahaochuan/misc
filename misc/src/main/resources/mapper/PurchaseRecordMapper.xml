@@ -120,13 +120,12 @@
 		pr.material_id materialId,
 		rm.`name` materialName,
 		rm.price price,
-		rm.unit unit,
+		u.unit_name unit,
 		pr.purchase_number purchaseNumber,
 		pr.purchase_number * rm.price totlePrice,
 		pr.creat_time creatTime,
 		pr.creator creator
 		FROM
-		purchase_record pr
-		LEFT JOIN raw_material rm ON pr.material_id = rm.id
+		purchase_record pr, raw_material rm, unit u WHERE pr.material_id = rm.id AND rm.unit=u.unit_id
 	</select>
 </mapper>

@@ -11,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import com.xml.bean.RawMaterial;
 import com.xml.dao.RawMaterialMapper;
 import com.xml.vo.EasyUIPageVo;
+import com.xml.vo.RawMaterialVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,7 +60,7 @@ public class RawMaterialService {
 		return rawMaterialMapper.insertSelective(rawMaterial);
 	}
 	
-	public RawMaterial getByPrimaryKey(int id) {
+	public RawMaterialVo getByPrimaryKey(int id) {
 //		rawMaterialMapper.selectByPrimaryKey(id);
 		return rawMaterialMapper.selectByPrimaryKey(id);
 	}

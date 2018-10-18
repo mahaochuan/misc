@@ -42,6 +42,23 @@ function formatDatebox(value) {
   
     return dt.Format("yyyy-MM-dd hh:mm:ss"); //扩展的Date的format方法(上述插件实现)  
 }
+
+function saveSaleChance() {
+	var unitCode = $("#materialUnit").attr("unitCode");
+	$("#materialUnit").val(unitCode);
+	$("#fm").form({
+		url: '/purchase/insertPurchaseInfo',
+		onSubmit: function () {
+
+        },
+		success: function () {
+            $("#dlg").dialog("close");
+            alert("成功");
+        }
+
+	});
+    $("#fm").submit();
+}
 function closeSaleChanceDialog() {
 	$("#dlg").dialog("close");
 }
@@ -52,11 +69,12 @@ function getRawMaterial(id) {
 		 type:"GET", 
 		 dataType: "json", 
 		 success:function(data){ 
-			 var unit = data.unit;
+			 var unitCode = data.unitCode;
+			 var unitName = data.unitName;
 			 var price = data.price;
-			 $("#materialUnit").val(unit);
+			 $("#materialUnit").val(unitName);
 			 $("#materialPrice").val(price);
-			 $("#materialUnit").attr("","");
+			 $("#materialUnit").attr("unitCode",unitCode);
 			 
 		} 
 	})
@@ -74,7 +92,7 @@ function getRawMaterial(id) {
 				<th data-options="field:'materialId',width:80,halign:'center'">原料Id</th>
 				<th data-options="field:'materialName',width:80,halign:'center'">原料名称</th>
 				<th data-options="field:'price',width:80,halign:'center'">单价(元)</th>
-				<th data-options="field:'unit',width:80,halign:'center'">单位</th>
+				<th data-options="field:'unit',width:80,halign:'center'">计量单位</th>
 				<th data-options="field:'purchaseNumber',width:80,halign:'center'">进货量</th>
 				<th data-options="field:'totlePrice',width:80,halign:'center'">总价(元)</th>
 				<th data-options="field:'creatTime',width:120,halign:'center',formatter: formatDatebox">进货时间</th>
@@ -112,14 +130,14 @@ function getRawMaterial(id) {
    			</select>&nbsp;<font color="red">*</font></td>
    			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
    			<td>单位：</td>
-   			<td><input type="text" id="materialUnit" name="chanceSource" /></td>
+   			<td><input type="text" id="materialUnit" name="materialUnit" /></td>
    		</tr>
    		<tr>
    			<td>单价：</td>
-   			<td><input type="text" id="materialPrice" name="linkMan" /></td>
+   			<td><input type="text" id="materialPrice" name="materialPrice" /></td>
    			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
    			<td>进货量：</td>
-   			<td><input type="text" id="linkPhone" name="linkPhone" /></td>
+   			<td><input type="text" id="purchaseNumber" name="purchaseNumber" /></td>
    		</tr>
    		<tr>
    			<td>概要：</td>

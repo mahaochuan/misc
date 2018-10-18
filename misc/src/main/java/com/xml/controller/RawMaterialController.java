@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.xml.bean.RawMaterial;
 import com.xml.service.RawMaterialService;
 import com.xml.vo.EasyUIPageVo;
+import com.xml.vo.RawMaterialVo;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -42,9 +43,9 @@ public class RawMaterialController {
 	}
 	
 	@RequestMapping("getRawMaterial/{rawMaterialId}")
-	public RawMaterial getByPrimaryKey(@PathVariable("rawMaterialId") int rawMaterialId) {
+	public RawMaterialVo getByPrimaryKey(@PathVariable("rawMaterialId") int rawMaterialId) {
 		log.info("请求参数：rawMaterialId="+rawMaterialId);
-		RawMaterial rawMaterial =rawMaterialService.getByPrimaryKey(rawMaterialId);
+		RawMaterialVo rawMaterial =rawMaterialService.getByPrimaryKey(rawMaterialId);
 		log.info("返回结果："+rawMaterial.getName());
 		return rawMaterial;
 	}

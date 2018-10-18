@@ -13,11 +13,18 @@
   <sql id="Base_Column_List" >
     id, name, price, unit, status, creat_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultType="com.xml.vo.RawMaterialVo" parameterType="java.lang.Integer" >
     select 
-    <include refid="Base_Column_List" />
-    from raw_material
-    where id = #{id,jdbcType=INTEGER}
+    	r.id id,
+		r.`NAME` name,
+		r.price price,
+		r.unit unitCode,
+		u.unit_name unitName,
+		r.`STATUS` status,
+		r.creat_time creatTime,
+		r.update_time updateTime
+    from raw_material r LEFT JOIN unit u ON r.unit = u.unit_id
+    where r.id = #{id,jdbcType=INTEGER} AND r.`status` = '0'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from raw_material

@@ -1,6 +1,7 @@
 package com.xml.dao;
 
 import com.xml.bean.RawMaterial;
+import com.xml.vo.RawMaterialVo;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface RawMaterialMapper {
 
     int insertSelective(RawMaterial record);
 
-    RawMaterial selectByPrimaryKey(Integer id);
+    RawMaterialVo selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(RawMaterial record);
 
